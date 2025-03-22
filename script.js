@@ -1,95 +1,54 @@
-const bgMusic = new Audio("music.mp3");
-const catchSound = new Audio("catch.mp3");
+const snitch = document.getElementById('snitch');
+const timerDisplay = document.getElementById('timer');
+const scoreDisplay = document.getElementById('score');
+const startBtn = document.getElementById('start-btn');
 
 let score = 0;
-let gameActive = false;
-const gameContainer = document.getElementById("game-container");
-const scoreDisplay = document.getElementById("score");
-const gameMessage = document.getElementById("game-message");
-const startButton = document.getElementById("start-btn");
-const harry = document.getElementById("harry");
+let timeLeft = 30;
+let gameInterval;
+let timerInterval;
 
-let harryX = 50;
-
-// ✅ Fix Start Button Issue
-document.addEventListener("DOMContentLoaded", () => {
-    startButton.addEventListener("click", startGame);
-});
-
-document.addEventListener("click", () => {
-    bgMusic.play().catch(err => console.log("Music error:", err));
-});
-
-// ✅ Fix Character Movement
-document.addEventListener("keydown", (e) => {
-    if (e.key === "ArrowLeft" && harryX > 10) {
-        harryX -= 5;
-    } else if (e.key === "ArrowRight" && harryX < 90) {
-        harryX += 5;
-    }
-    harry.style.left = harryX + "%";
-});
-
-// ✅ Fix Snitch Falling and Limited Area
-function spawnSnitch() {
-    if (!gameActive) return;
-
-    let snitch = document.createElement("img");
-    snitch.src = "snitch.png";
-    snitch.classList.add("snitch");
-
-    let startX = Math.random() * 80 + 10; // Keep Snitch in field
-    let startY = 0;
-
-    snitch.style.left = startX + "%";
-    snitch.style.top = startY + "%";
-    gameContainer.appendChild(snitch);
-
-    let fallInterval = setInterval(() => {
-        startY += 2;
-        snitch.style.top = startY + "%";
-
-        // Remove Snitch if it reaches the ground
-        if (startY >= 90) {
-            clearInterval(fallInterval);
-            snitch.remove();
-        }
-    }, 50);
-
-    // ✅ Catching Snitch
-    snitch.addEventListener("click", function () {
-        if (gameActive) {
-            score++;
-            scoreDisplay.innerText = "Snitches Caught: " + score;
-            snitch.classList.add("caught");
-            catchSound.currentTime = 0;
-            catchSound.play();
-            setTimeout(() => {
-                clearInterval(fallInterval);
-                snitch.remove();
-            }, 300);
-            checkGameEnd();
-        }
-    });
-
-    setTimeout(spawnSnitch, 1000);
+// Function to move the snitch randomly
+function moveSnitch() {
+  const x = Math.random() * (window.innerWidth - 100);
+  const y = Math.random() * (window.innerHeight - 100);
+  snitch.style.left = `${x}px`;
+  snitch.style.top = `${y}px`;
 }
 
-// ✅ Fix Game End
-function checkGameEnd() {
-    if (score >= 10) {
-        gameActive = false;
-        gameMessage.innerText = "Congratulations! You caught 10 Snitches!";
-        gameMessage.style.display = "block";
-        startButton.style.display = "block";
-    }
-}
-
+// Function to start the game
 function startGame() {
-    gameActive = true;
-    score = 0;
-    scoreDisplay.innerText = "Snitches Caught: 0";
-    gameMessage.style.display = "none";
-    startButton.style.display = "none";
-    spawnSnitch();
+  score = 0;
+  timeLeft = 30;
+  scoreDisplay.textContent = `Snitches Caught: ${score}`;
+  timerDisplay.textContent = `Time Left: ${timeLeft}s`;
+
+  // Clear previous intervals
+  clearInterval(gameInterval);
+  clearInterval(timerInterval);
+
+  // Start moving the snitch
+  gameInterval = setInterval(moveSnitch, 1000);
+
+  // Start the timer
+  timerInterval = setInterval(() => {
+    timeLeft--;
+    timerDisplay.textContent = `Time Left: ${timeLeft}s`;
+
+    if (timeLeft <= 0) {
+      clearInterval(gameInterval);
+      clearInterval(timerInterval);
+      alert(`Game Over! You caught ${score} Golden Snitches.`);
+    }
+  }, 1000);
 }
+
+// Event listener for catching the snitch
+snitch.addEventListener('click', () => {
+  score++;
+  scoreDisplay.textContent = `Snitches Caught: ${score}`;
+  moveSnitch();
+});
+
+// Event listener for the start button
+startBtn.addEventListener('click', startGame);
