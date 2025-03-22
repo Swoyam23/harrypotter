@@ -1,66 +1,61 @@
 body {
-    text-align: center;
-    font-family: 'HarryPotter', sans-serif;
-    background-image: url('background.jpg'); /* ✅ Background Fixed */
-    background-size: cover;
-    background-position: center;
-    color: white;
-    margin: 0;
-    overflow: hidden;
+  font-family: 'Cinzel', serif;
+  background-color: #0a0a23;
+  color: #f0e68c;
+  text-align: center;
+  margin: 0;
+  padding: 0;
 }
 
-@font-face {
-    font-family: 'HarryPotter';
-    src: url('harrypotter.ttf');
+.container {
+  padding: 20px;
 }
 
 h1 {
-    font-size: 2rem;
+  font-size: 3rem;
+  margin-bottom: 10px;
 }
 
-#game-container {
-    position: relative;
-    width: 100vw;
-    height: 80vh;
+p {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
 }
 
-#game-field {
-    position: absolute;
-    width: 80vw;
-    height: 80vh;
-    left: 10vw;
-    top: 10vh;
-    border: 2px solid gold;
-    overflow: hidden;
+.game-area {
+  position: relative;
+  width: 600px;
+  height: 400px;
+  margin: 0 auto;
+  background-color: #1a1a40;
+  border: 2px solid #f0e68c;
+  overflow: hidden;
 }
 
-#harry {
-    position: absolute;
-    width: 80px;
-    bottom: 10px;
-    left: 50%;
-    transform: translateX(-50%);
+#timer, #score {
+  font-size: 1.5rem;
+  margin: 10px;
 }
 
 .snitch {
-    position: absolute;
-    width: 40px;
-    transition: transform 0.2s ease-in-out;
-}
-
-.snitch.caught {
-    transform: scale(1.5);
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  background-image: url('snitch.png'); /* Add a golden snitch image */
+  background-size: cover;
+  cursor: pointer;
 }
 
 #start-btn {
-    padding: 10px 20px;
-    font-size: 18px;
-    cursor: pointer;
-    margin-top: 20px;
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  background-color: #f0e68c;
+  color: #0a0a23;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
 }
 
-#game-message {
-    font-size: 20px;
-    margin-top: 20px;
-    display: none;
+#start-btn:hover {
+  background-color: #ffd700;
 }
