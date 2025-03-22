@@ -1,25 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Harry Potter Snitch Game</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Harry Potter Apology Game</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Catch the Snitch!</h1>
-    <p>Move Harry left/right and catch 10 Snitches to win!</p>
-    
-    <div id="game-container">
-        <div id="game-field">
-            <img id="harry" src="harry.png">
-        </div>
+  <div class="container">
+    <h1>Golden Snitch Apology Game</h1>
+    <p>Catch as many Golden Snitches as you can to apologize!</p>
+    <div class="game-area">
+      <div id="timer">Time Left: 30s</div>
+      <div id="score">Snitches Caught: 0</div>
+      <div id="snitch" class="snitch"></div>
     </div>
-
-    <p id="score">Snitches Caught: 0</p>
-    <button id="start-btn">Click to Start</button>
-    <p id="game-message"></p>
-
-    <script src="script.js"></script>
+    <button id="start-btn">Start Game</button>
+  </div>
+  <script src="script.js"></script>
 </body>
 </html>
